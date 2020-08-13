@@ -43,6 +43,7 @@ progressr::with_progress({
 scrape_day = lubridate::today("UTC")
 
 saveRDS(roster_raw, glue::glue('roster/{lubridate::year(scrape_day)}_{format.Date(scrape_day, "%m")}_{format.Date(scrape_day, "%d")}_roster.rds'))
+saveRDS(roster_raw, 'roster/roster.rds')
 
 
 #github setup stuff
