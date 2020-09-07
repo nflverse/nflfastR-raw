@@ -38,9 +38,9 @@ get_finished_games <- function() {
 
 #function to get the completed games
 #that are not present in the data repo
-get_missing_games <- function(finished_games) {
+get_missing_games <- function(finished_games, dir) {
   
-  server <- list.files('raw', recursive = T) %>%
+  server <- list.files(dir, recursive = T) %>%
     as_tibble() %>%
     dplyr::rename(
       name = value

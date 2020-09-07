@@ -5,9 +5,9 @@ source_python("scrape.py")
 ## that are not on the server
 games <- get_finished_games() %>%
   filter(!is.na(result)) %>%
-  filter(season >= 2011)
+  filter(season >= 2010, season < 2011)
 
-scrape_me <- get_missing_games(games, 'raw')
+scrape_me <- get_missing_games(games, 'raw_old')
 
 #testing only
 #scrape_me <- scrape_me %>% filter(season == 2019 & week <= 2)
@@ -41,9 +41,9 @@ if (nrow(scrape_me) > 0) {
       home = game$home_team
       
       #save
-      saveRDS(json, glue::glue('raw/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.rds'))
-      jsonlite::write_json(json, glue::glue('raw/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.json'))
-      system(glue::glue('gzip raw/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.json'))
+      saveRDS(json, glue::glue('raw_old/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.rds'))
+      jsonlite::write_json(json, glue::glue('raw_old/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.json'))
+      system(glue::glue('gzip raw_old/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.json'))
       
       message(glue::glue('Found a game ({season}/w{week}/{away}/{home}). Here is a play: {json$data$viewer$gameDetail$plays$playDescriptionWithJerseyNumbers[3]}'))
       
@@ -66,8 +66,8 @@ if (nrow(scrape_me) > 0) {
 
   
   #thanks to Tan for the code
-  git2r::add(data_repo,'raw/*') # add specific files to staging of commit
-  git2r::commit(data_repo,message = glue::glue("Updating data at {Sys.time()}")) # commit the staged files with the chosen message
+  git2r::add(data_repo,'raw_old/*') # add specific files to staging of commit
+  git2r::commit(data_repo, message = glue::glue("Updating data at {Sys.time()}")) # commit the staged files with the chosen message
   git2r::pull(data_repo) # pull repo (and pray there are no merge commits)
   git2r::push(data_repo, credentials = git2r::cred_user_pass(username = 'guga31bb', password = paste(password))) # push commit
   
