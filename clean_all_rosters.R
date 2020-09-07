@@ -1,12 +1,10 @@
 source("combine_roster_data.R")
 
 # run this every thurs early in morning
-scrape_day <- as.character(lubridate::today())
-
-if (lubridate::month(scrape_day) %in% c(9, 10, 11, 12, 1, 2)) {
+if (lubridate::month(lubridate::today()) %in% c(9, 10, 11, 12, 1, 2)) {
   
   suppressWarnings(
-    roster <- combine_roster_data(scrape_day)
+    roster <- combine_roster_data("2020-09-10")
   )
   
   saveRDS(roster, 'roster/roster_cleaned.rds')
