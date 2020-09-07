@@ -4,8 +4,8 @@ source_python("scrape.py")
 ## scrape_me is a df of games that are finished
 ## that are not on the server
 games <- get_finished_games() %>%
-  filter(!is.na(result)) %>%
-  filter(season >= 2010, season < 2011)
+  dplyr::filter(!is.na(result)) %>%
+  dplyr::filter(season >= 2010, season < 2011)
 
 scrape_me <- get_missing_games(games, 'raw_old')
 
@@ -21,7 +21,7 @@ if (nrow(scrape_me) > 0) {
     #testing only
     #j = 3
     
-    game = scrape_me %>% slice(j)
+    game = scrape_me %>% dplyr::slice(j)
     
     t <- get_pbp_from_website(game$url)
 

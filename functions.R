@@ -1,6 +1,6 @@
 library(reticulate)
-library(tidyverse)
-library(nflfastR)
+# library(nflfastR)
+`%>%`<-magrittr::`%>%`
 
 #github setup stuff
 if (grepl("Documents",getwd())){
@@ -14,21 +14,21 @@ data_repo <- git2r::repository('./') # Set up connection to repository folder
 #get completed games
 get_finished_games <- function() {
   
-  names <- teams_colors_logos %>%
-    select(team_nick, team_abbr)
+  names <- nflfastR::teams_colors_logos %>%
+    dplyr::select(team_nick, team_abbr)
   
   games <- readRDS(url("http://www.habitatring.com/games.rds")) %>%
-    as_tibble() %>%
-    select(game_id, result, season, game_type, week, away_team, home_team) %>%
-    mutate(week = as.integer(week), 
-           week = if_else(game_type == 'REG', week, as.integer(week - 17)),
-           game_type = if_else(game_type == 'REG', 'reg', 'post')
+    tibble::as_tibble() %>%
+    dplyr::select(game_id, result, season, game_type, week, away_team, home_team) %>%
+    dplyr::mutate(week = as.integer(week), 
+           week = dplyr::if_else(game_type == 'REG', week, as.integer(week - 17)),
+           game_type = dplyr::if_else(game_type == 'REG', 'reg', 'post')
     ) %>%
-    left_join(names, by = c('home_team' = 'team_abbr')) %>%
+    dplyr::left_join(names, by = c('home_team' = 'team_abbr')) %>%
     dplyr::rename(home_name = team_nick) %>%
-    left_join(names, by = c('away_team' = 'team_abbr')) %>%
+    dplyr::left_join(names, by = c('away_team' = 'team_abbr')) %>%
     dplyr::rename(away_name = team_nick) %>%
-    mutate(
+    dplyr::mutate(
       url = paste0('https://www.nfl.com/games/',away_name,'-at-',home_name,'-',season,'-',game_type,'-',week)
     )
   
@@ -41,7 +41,7 @@ get_finished_games <- function() {
 get_missing_games <- function(finished_games, dir) {
   
   server <- list.files(dir, recursive = T) %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     dplyr::rename(
       name = value
     ) %>%
@@ -73,7 +73,7 @@ get_missing_games <- function(finished_games, dir) {
     dplyr::arrange(season, week) %>%
     dplyr::rename(game_id = name) %>%
     dplyr::distinct() %>%
-    arrange(game_id)
+    dplyr::arrange(game_id)
   
   server_ids <- unique(server$game_id)
   finished_ids <-unique(finished_games$game_id)
