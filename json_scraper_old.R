@@ -9,6 +9,10 @@ games <- get_finished_games() %>%
 
 scrape_me <- get_missing_games(games, 'raw_old')
 
+if (!dir.exists('raw_old')) {
+  dir.create('raw_old')
+}
+
 #testing only
 #scrape_me <- scrape_me %>% filter(season == 2019 & week <= 2)
 
@@ -39,6 +43,10 @@ if (nrow(scrape_me) > 0) {
       }
       away = game$away_team
       home = game$home_team
+      
+      if (!dir.exists(glue::glue('raw_old/{season}'))) {
+        dir.create(glue::glue('raw_old/{season}'))
+      }
       
       #save
       saveRDS(json, glue::glue('raw_old/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.rds'))
