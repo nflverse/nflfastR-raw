@@ -29,6 +29,18 @@ get_finished_games <- function() {
     dplyr::left_join(names, by = c('away_team' = 'team_abbr')) %>%
     dplyr::rename(away_name = team_nick) %>%
     dplyr::mutate(
+      home_name = dplyr::case_when(
+        season < 2020 & home_name == "Football Team" ~ "Redskins",
+        season == 2020 & home_name == "Football Team" ~ "football-team",
+        TRUE ~ home_name
+        ),
+      away_name = dplyr::case_when(
+        season < 2020 & away_name == "Football Team" ~ "Redskins",
+        season == 2020 & away_name == "Football Team" ~ "football-team",
+        TRUE ~ away_name
+      )
+    ) %>%
+    dplyr::mutate(
       url = paste0('https://www.nfl.com/games/',away_name,'-at-',home_name,'-',season,'-',game_type,'-',week)
     )
   
