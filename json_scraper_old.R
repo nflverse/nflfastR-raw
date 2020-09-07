@@ -5,7 +5,7 @@ source_python("scrape.py")
 ## that are not on the server
 games <- get_finished_games() %>%
   dplyr::filter(!is.na(result)) %>%
-  dplyr::filter(season >= 2010, season < 2011)
+  dplyr::filter(season >= 2005, season < 2011)
 
 scrape_me <- get_missing_games(games, 'raw_old')
 
