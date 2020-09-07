@@ -1,3 +1,5 @@
+`%>%`<-magrittr::`%>%`
+
 combine_roster_data <- function(start_date) {
   start <- lubridate::as_date(start_date) # Thursaday Week 1 2020
   weeks <- lubridate::days(lubridate::today("UTC")-start) %>%
