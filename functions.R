@@ -80,7 +80,7 @@ get_missing_games <- function(finished_games, dir) {
   
   need_scrape <- finished_games[!finished_ids %in% server_ids,]
   
-  message(glue::glue('You have {nrow(finished_games[finished_ids %in% server_ids,])} games and need {nrow(need_scrape)}'))
+  message(glue::glue('{lubridate::now()}: You have {nrow(finished_games[finished_ids %in% server_ids,])} games and need {nrow(need_scrape)}'))
   
   return(need_scrape)
   
