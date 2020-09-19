@@ -19,7 +19,7 @@ for (file in files) {
   
   message(glue::glue("Erasing raw/{season}/{file}"))
   
-  # file.remove(glue::glue("raw/{season}/{file}"))
+  file.remove(glue::glue("raw/{season}/{file}"))
 }
 
 message("Erasing completed.")
