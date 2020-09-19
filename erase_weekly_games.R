@@ -10,16 +10,22 @@ week <- get_current_week()
 
 pattern <- glue::glue("{season}_{formatC(week, width=2, flag=\"0\")}_*")
 
-files <- list.files(
-  path = glue::glue("raw/{season}"),
-  pattern
+# just do super bowl manually since the weeks are complicated
+if (week <= 20) {
+  
+  files <- list.files(
+    path = glue::glue("raw/{season}"),
+    pattern
   )
-
-for (file in files) {
   
-  message(glue::glue("Erasing raw/{season}/{file}"))
+  for (file in files) {
+    
+    message(glue::glue("Erasing raw/{season}/{file}"))
+    
+    file.remove(glue::glue("raw/{season}/{file}"))
+  }
   
-  file.remove(glue::glue("raw/{season}/{file}"))
+  message("Erasing completed.")
+  
 }
 
-message("Erasing completed.")
