@@ -41,7 +41,13 @@ get_finished_games <- function() {
       )
     ) %>%
     dplyr::mutate(
-      url = paste0('https://www.nfl.com/games/',away_name,'-at-',home_name,'-',season,'-',game_type,'-',week)
+      url = paste0('https://www.nfl.com/games/',away_name,'-at-',home_name,'-',season,'-',game_type,'-',week),
+      # manual fix for weird URL in this game
+      url = dplyr::if_else(
+        season == 2020 & week == 4 & home_team == "CHI",
+        "https://www.nfl.com/games/colts-at-bears-2020-reg-4-x4464",
+        url
+      )
     )
   
   return(games)
