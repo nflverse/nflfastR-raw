@@ -4,7 +4,8 @@ get_current_week <- function() {
   
   # get list of games from current season
   games <- readRDS(url("https://github.com/leesharpe/nfldata/blob/master/data/games.rds?raw=true")) %>%
-    dplyr::filter(season == max(season))
+    dplyr::filter(season == max(season)) %>%
+    dplyr::arrange(gameday)
   
   # get date of first game
   first_game <- lubridate::as_date(dplyr::first(games$gameday))
