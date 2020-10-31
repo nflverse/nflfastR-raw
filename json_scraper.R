@@ -81,5 +81,9 @@ if (nrow(scrape_me) > 0) {
   
   message(paste('Successfully uploaded to GitHub at',Sys.time())) # I have cron set up to pipe this message to healthchecks.io
   
+  # one last removal of storage
+  system('rm -r /home/ben/.seleniumwire/storage-*')
+  
+  
 }
 
