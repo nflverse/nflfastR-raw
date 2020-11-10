@@ -84,5 +84,5 @@ if (nrow(scrape_me) > 0) {
 }
 
 # one last removal of storage
-system('rm -r /home/ben/.seleniumwire/storage-*')
+# system('rm -r /home/ben/.seleniumwire/storage-*')
 
