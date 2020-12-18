@@ -77,12 +77,18 @@ if (nrow(scrape_me) > 0) {
   git2r::add(data_repo,'raw/*') # add specific files to staging of commit
   git2r::commit(data_repo,message = glue::glue("Updating data at {Sys.time()}")) # commit the staged files with the chosen message
   git2r::pull(data_repo) # pull repo (and pray there are no merge commits)
-  git2r::push(data_repo, credentials = git2r::cred_user_pass(username = 'guga31bb', password = paste(password))) # push commit
+  
+  # old code before PAT
+  # uncomment this if the new system doesn't work
+  # git2r::push(data_repo, credentials = git2r::cred_user_pass(username = 'guga31bb', password = paste(password))) # push commit
+  # end old code
+  
+  # new code with PAT
+  cred <- git2r::cred_token()
+  git2r::push(data_repo, credentials = cred) # push commit
   
   message(paste('Successfully uploaded to GitHub at',Sys.time())) # I have cron set up to pipe this message to healthchecks.io
   
 }
 
-# one last removal of storage
-# system('rm -r /home/ben/.seleniumwire/storage-*')
 
