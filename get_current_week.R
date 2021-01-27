@@ -20,3 +20,15 @@ get_current_week <- function() {
   return(current_week)
   
 }
+
+get_current_season <- function() {
+  
+  s <- dplyr::if_else(
+    lubridate::month(lubridate::today("GMT")) >= 9,
+    lubridate::year(lubridate::today("GMT")) ,
+    lubridate::year(lubridate::today("GMT")) - 1
+  )
+  
+  return(s)
+  
+}
