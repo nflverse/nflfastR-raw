@@ -13,8 +13,10 @@ def get_pbp_from_website(url):
   #(a) this prevents zombie drivers from slowing down system
   #(b) makes dealing with errors easier (if it doesn't find anything, close at the end)
   #(c) navigating to one page, scraping, then going to another to scrape wasn't reliable
-  driver = webdriver.Chrome('/home/ben/.wdm/drivers/chromedriver/83.0.4103.39/linux64/chromedriver', options = chromeOptions)
   
+  # driver = webdriver.Chrome('/home/ben/.wdm/drivers/chromedriver/83.0.4103.39/linux64/chromedriver', options = chromeOptions)
+  driver = webdriver.Chrome(ChromeDriverManager().install(), options = chromeOptions)
+
   driver.get(url)
   time.sleep(12)
   
