@@ -55,10 +55,11 @@ if (nrow(scrape_me) > 0) {
 
       message(glue::glue('Found a game ({season}/w{week}/{away}/{home}). Here is a play: {json$data$viewer$gameDetail$plays$playDescriptionWithJerseyNumbers[3]}'))
 
-      #do some cleaning so server doesn't get clogged
-      system('rm -r /home/ben/.seleniumwire/storage-*')
-      system('killall chromedriver', ignore.stderr = T)
-      system('killall chrome', ignore.stderr = T)
+      # do some cleaning so server doesn't get clogged
+      # i don't think this should be necessary anymore?
+      # system('rm -r /home/ben/.seleniumwire/storage-*')
+      # system('killall chromedriver', ignore.stderr = T)
+      # system('killall chrome', ignore.stderr = T)
 
     } else {
       message(glue::glue('Nothing found for this game: {game$url}'))
@@ -71,11 +72,11 @@ if (nrow(scrape_me) > 0) {
   #prevents errors in future, hopefully
   system('killall chromedriver')
   system('killall chrome')
-
+  system('rm -r /home/ben/.seleniumwire/storage-*')
 
   #thanks to Tan for the code
   git2r::add(data_repo,'raw/*') # add specific files to staging of commit
-  git2r::commit(data_repo,message = glue::glue("Updating data at {Sys.time()}")) # commit the staged files with the chosen message
+  git2r::commit(data_repo,message = glue::glue("Automated pbp scrape at {Sys.time()}")) # commit the staged files with the chosen message
   git2r::pull(data_repo) # pull repo (and pray there are no merge commits)
 
   # old code before PAT

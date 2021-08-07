@@ -25,9 +25,9 @@ def get_pbp_from_website(url):
   for request in driver.requests:
     if 'realStartTime' in request.path:
       text = request.response.body
-      driver.close()
+      driver.quit()
       return text
   
   #if we made it this far without finding something, close driver
-  driver.close()
+  driver.quit()
 
