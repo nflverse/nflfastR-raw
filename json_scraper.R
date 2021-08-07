@@ -18,6 +18,8 @@ if (!dir.exists('raw')) {
 
 if (nrow(scrape_me) > 0) {
 
+  n_games <- nrow(scrape_me)
+
   #the actual scrape
   tictoc::tic(glue::glue('Scraped {nrow(scrape_me)} games'))
   for (j in 1 : nrow(scrape_me)) {
@@ -76,7 +78,7 @@ if (nrow(scrape_me) > 0) {
 
   #thanks to Tan for the code
   git2r::add(data_repo,'raw/*') # add specific files to staging of commit
-  git2r::commit(data_repo,message = glue::glue("Automated pbp scrape at {Sys.time()}")) # commit the staged files with the chosen message
+  git2r::commit(data_repo,message = glue::glue("Automated pbp scrape ({n_games} new games) at {Sys.time()}")) # commit the staged files with the chosen message
   git2r::pull(data_repo) # pull repo (and pray there are no merge commits)
 
   # old code before PAT
