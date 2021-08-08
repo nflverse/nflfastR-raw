@@ -74,7 +74,7 @@ if (nrow(scrape_me) > 0) {
   #prevents errors in future, hopefully
   system('killall chromedriver')
   system('killall chrome')
-  system('rm -r /home/ben/.seleniumwire/storage-*')
+  # system('rm -r /home/ben/.seleniumwire/storage-*')
 
   #thanks to Tan for the code
   git2r::add(data_repo,'raw/*') # add specific files to staging of commit

@@ -6,6 +6,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 chromeOptions = webdriver.ChromeOptions()
 chromeOptions.add_argument("--headless")
 
+wire_options = {
+    'request_storage': 'memory',
+    'request_storage_max_size': 100  # Store no more than 100 requests in memory
+}
+
 #do the scrape
 def get_pbp_from_website(url):
   
@@ -14,7 +19,7 @@ def get_pbp_from_website(url):
   #(b) makes dealing with errors easier (if it doesn't find anything, close at the end)
   #(c) navigating to one page, scraping, then going to another to scrape wasn't reliable
   
-  driver = webdriver.Chrome('/home/ben/.wdm/drivers/chromedriver/89.0.4389.23/linux64/chromedriver', options = chromeOptions)
+  driver = webdriver.Chrome('/home/ben/.wdm/drivers/chromedriver/89.0.4389.23/linux64/chromedriver', options = chromeOptions, seleniumwire_options = wire_options)
   
   # IF YOU NEED A NEW DRIVER, RUN THIS ONCE
   # driver = webdriver.Chrome(ChromeDriverManager().install(), options = chromeOptions)
