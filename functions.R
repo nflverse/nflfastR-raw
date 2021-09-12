@@ -35,12 +35,12 @@ get_finished_games <- function() {
     dplyr::mutate(
       home_name = dplyr::case_when(
         season < 2020 & home_name == "Football Team" ~ "Redskins",
-        season == 2020 & home_name == "Football Team" ~ "football-team",
+        season >= 2020 & home_name == "Football Team" ~ "football-team",
         TRUE ~ home_name
         ),
       away_name = dplyr::case_when(
         season < 2020 & away_name == "Football Team" ~ "Redskins",
-        season == 2020 & away_name == "Football Team" ~ "football-team",
+        season >= 2020 & away_name == "Football Team" ~ "football-team",
         TRUE ~ away_name
       )
     ) %>%
