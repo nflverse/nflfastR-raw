@@ -45,6 +45,7 @@ get_finished_games <- function() {
       )
     ) %>%
     dplyr::mutate(
+      week = ifelse(game_type == "post", week - 18, week),
       url = paste0('https://www.nfl.com/games/',away_name,'-at-',home_name,'-',season,'-',game_type,'-',week),
       # manual fix for weird URL in this game
       url = dplyr::if_else(
