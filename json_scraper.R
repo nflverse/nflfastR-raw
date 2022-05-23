@@ -55,7 +55,7 @@ if (nrow(scrape_me) > 0) {
       jsonlite::write_json(json, glue::glue('raw/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.json'))
       system(glue::glue('gzip raw/{season}/{season}_{formatC(week, width=2, flag=\"0\")}_{away}_{home}.json'))
 
-      message(glue::glue('Found a game ({season}/w{week}/{away}/{home}). Here is a play: {json$data$viewer$gameDetail$plays$playDescriptionWithJerseyNumbers[3]}'))
+      message(glue::glue('Found {season}/w{week}/{away}/{home}. {json$data$viewer$gameDetail$plays$playDescriptionWithJerseyNumbers[3]}'))
 
       # do some cleaning so server doesn't get clogged
       # i don't think this should be necessary anymore?
