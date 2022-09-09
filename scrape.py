@@ -28,7 +28,7 @@ def get_pbp_from_website(url):
   time.sleep(12)
   
   for request in driver.requests:
-    if 'realStartTime' in request.path:
+    if 'gamedetails' in request.path:
       text = request.response.body
       driver.quit()
       return text
