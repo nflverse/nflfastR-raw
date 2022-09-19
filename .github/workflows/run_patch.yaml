@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Trigger pbp patch
         run: | 
-          gh api repos/nflverse/nflverse-pbp/actions/workflows/35258014/dispatches --input '{"ref":"main"}'
+          gh api repos/nflverse/nflverse-pbp/actions/workflows/35258014/dispatches -f body='{"ref":"main"}'
         
