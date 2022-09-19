@@ -15,5 +15,5 @@ jobs:
             -X POST \
             -H "Accept: application/vnd.github+json" \ 
             -H "Authorization: Bearer $GITHUB_PAT" \
-            https://api.github.com/repos/nflverse/nflverse-pbp/actions/workflows/35258014/dispatches \
+            'https://api.github.com/repos/nflverse/nflverse-pbp/actions/workflows/35258014/dispatches' \
             -d '{"ref":"main"}'
