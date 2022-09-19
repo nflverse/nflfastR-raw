@@ -8,12 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       GITHUB_PAT: ${{ secrets.NFLVERSE_GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.NFLVERSE_GH_TOKEN }}
     steps:
       - name: Trigger pbp patch
         run: | 
-          curl -X POST \
-            -H "Accept:application/vnd.github+json" \ 
-            -H "Authorization:Bearer $GITHUB_PAT" \
-            "https://api.github.com/repos/nflverse/nflverse-pbp/actions/workflows/35258014/dispatches" \
-            -d '{"ref":"main"}'
+          gh api repos/nflverse/nflverse-pbp/actions/workflows/35258014/dispatches --input '{"ref":"main"}'
         
